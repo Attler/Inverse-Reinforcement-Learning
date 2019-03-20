@@ -21,6 +21,7 @@ class Gridworld(object):
         -> Gridworld
         """
 
+        # RIGHT, UP, LEFT, DOWN
         self.actions = ((1, 0), (0, 1), (-1, 0), (0, -1))
         self.n_actions = len(self.actions)
         self.n_states = grid_size**2
