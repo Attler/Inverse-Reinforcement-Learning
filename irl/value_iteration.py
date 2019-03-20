@@ -110,6 +110,30 @@ def find_policy(n_states, n_actions, transition_probabilities, reward, discount,
     policy = np.array([_policy(s) for s in range(n_states)])
     return policy
 
+
+def find_best_response(n_states, n_actions, transition_probabilities, reward, discount, threshold=1e-2, v=None, stochastic=True):
+
+    # TODO
+    """
+    Find the best response policy under ACIRL
+
+    :param n_states:
+    :param n_actions:
+    :param transition_probabilities:
+    :param reward:
+    :param discount:
+    :param threshold:
+    :param v:
+    :param stochastic:
+    :return:
+    """
+
+
+    return find_policy(n_states, n_actions, transition_probabilities, reward, discount,
+                threshold=threshold-2, v=v, stochastic=stochastic)
+
+
+
 if __name__ == '__main__':
     # Quick unit test using gridworld.
     import mdp.gridworld as gridworld
