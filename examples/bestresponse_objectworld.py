@@ -57,18 +57,18 @@ def main(grid_size, discount, n_objects, n_colours, n_trajectories, epochs,
     print("Ground truth")
     print(ground_r.reshape((grid_size, grid_size)))
 
+    # get mapping for states to features
+    feature_matrix = ow.feature_matrix(discrete=False)
+
 
     # Find the policy for H under ACIRL assumptions
     policy = find_best_response(ow.n_states, ow.n_actions, ow.transition_probability,
-                         ground_r, ow.discount, stochastic=False)
+                         ground_r, ow.discount, stochastic=False, feature_matrix)
 
     # Generate training trajectories from H's policy (H_br)
     trajectories = ow.generate_trajectories(n_trajectories,
                                             trajectory_length,
                                             lambda s: policy[s])
-
-    # get mapping for states to features
-    feature_matrix = ow.feature_matrix(discrete=False)
 
 
     r = maxent.irl(feature_matrix, ow.n_actions, discount,

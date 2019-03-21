@@ -6,7 +6,6 @@ matthew.alger@anu.edu.au
 """
 
 import numpy as np
-import time
 
 
 def value(policy, n_states, transition_probabilities, reward, discount,
@@ -23,8 +22,7 @@ def value(policy, n_states, transition_probabilities, reward, discount,
     threshold: Convergence threshold, default 1e-2. float.
     -> Array of values for each state
     """
-    start = time.time()
-    print(start)
+
     v = np.zeros(n_states)
 
     diff = float("inf")
@@ -37,8 +35,7 @@ def value(policy, n_states, transition_probabilities, reward, discount,
                        (reward[k] + discount * v[k])
                        for k in range(n_states))
             diff = max(diff, abs(vs - v[s]))
-    end = time.time()
-    print(start-end)
+
 
     return v
 
@@ -59,8 +56,6 @@ def optimal_value(n_states, n_actions, transition_probabilities, reward,
 
     print("Find optimal value function")
 
-    start = time.time()
-    #print(start)
 
     v = np.zeros(n_states)
 
@@ -77,9 +72,7 @@ def optimal_value(n_states, n_actions, transition_probabilities, reward,
             if new_diff > diff:
                 diff = new_diff
             v[s] = max_v
-        #print("diff: ", diff)
-    end = time.time()
-    #print(start-end, "seconds")
+
 
     return v
 
@@ -128,35 +121,7 @@ def find_policy(n_states, n_actions, transition_probabilities, reward, discount,
     return policy
 
 
-def find_best_response(n_states, n_actions, transition_probabilities, reward, discount, threshold=1e-2, v=None, stochastic=True):
 
-    # TODO
-    """
-    Find the best response policy under ACIRL
-
-    :param n_states:
-    :param n_actions:
-    :param transition_probabilities:
-    :param reward:
-    :param discount:
-    :param threshold:
-    :param v:
-    :param stochastic:
-    :return:
-    """
-
-    print("Finding best response for H")
-
-    expert_policy = find_policy(n_states, n_actions, transition_probabilities, reward, discount,
-                threshold=threshold, v=v, stochastic=stochastic)
-
-    features_theta = None
-
-
-
-
-
-    return expert_policy
 
 
 
