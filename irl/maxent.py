@@ -33,6 +33,7 @@ def irl(feature_matrix, n_actions, discount, transition_probability,
     -> Reward vector with shape (N,).
     """
 
+    print("run maxent irl")
     n_states, d_states = feature_matrix.shape
 
     # Initialise weights.
@@ -44,7 +45,7 @@ def irl(feature_matrix, n_actions, discount, transition_probability,
 
     # Gradient descent on alpha.
     for i in range(epochs):
-        # print("i: {}".format(i))
+        print("epoch: {}".format(i))
         r = feature_matrix.dot(alpha)
         expected_svf = find_expected_svf(n_states, r, n_actions, discount,
                                          transition_probability, trajectories)

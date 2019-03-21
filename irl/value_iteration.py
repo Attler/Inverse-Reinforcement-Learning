@@ -6,6 +6,8 @@ matthew.alger@anu.edu.au
 """
 
 import numpy as np
+import time
+
 
 def value(policy, n_states, transition_probabilities, reward, discount,
                     threshold=1e-2):
@@ -21,6 +23,8 @@ def value(policy, n_states, transition_probabilities, reward, discount,
     threshold: Convergence threshold, default 1e-2. float.
     -> Array of values for each state
     """
+    start = time.time()
+    print(start)
     v = np.zeros(n_states)
 
     diff = float("inf")
@@ -33,6 +37,8 @@ def value(policy, n_states, transition_probabilities, reward, discount,
                        (reward[k] + discount * v[k])
                        for k in range(n_states))
             diff = max(diff, abs(vs - v[s]))
+    end = time.time()
+    print(start-end)
 
     return v
 
@@ -51,6 +57,11 @@ def optimal_value(n_states, n_actions, transition_probabilities, reward,
     -> Array of values for each state
     """
 
+    print("Find optimal value function")
+
+    start = time.time()
+    #print(start)
+
     v = np.zeros(n_states)
 
     diff = float("inf")
@@ -66,6 +77,9 @@ def optimal_value(n_states, n_actions, transition_probabilities, reward,
             if new_diff > diff:
                 diff = new_diff
             v[s] = max_v
+        #print("diff: ", diff)
+    end = time.time()
+    #print(start-end, "seconds")
 
     return v
 
@@ -87,6 +101,8 @@ def find_policy(n_states, n_actions, transition_probabilities, reward, discount,
         (depending on stochasticity).
     """
 
+    print("Find the optimal policy")
+
     if v is None:
         v = optimal_value(n_states, n_actions, transition_probabilities, reward,
                           discount, threshold)
@@ -95,6 +111,7 @@ def find_policy(n_states, n_actions, transition_probabilities, reward, discount,
         # Get Q using equation 9.2 from Ziebart's thesis.
         Q = np.zeros((n_states, n_actions))
         for i in range(n_states):
+            #print("State: ", i)
             for j in range(n_actions):
                 p = transition_probabilities[i, j, :]
                 Q[i, j] = p.dot(reward + discount*v)
@@ -128,9 +145,18 @@ def find_best_response(n_states, n_actions, transition_probabilities, reward, di
     :return:
     """
 
+    print("Finding best response for H")
 
-    return find_policy(n_states, n_actions, transition_probabilities, reward, discount,
-                threshold=threshold-2, v=v, stochastic=stochastic)
+    expert_policy = find_policy(n_states, n_actions, transition_probabilities, reward, discount,
+                threshold=threshold, v=v, stochastic=stochastic)
+
+    features_theta = None
+
+
+
+
+
+    return expert_policy
 
 
 

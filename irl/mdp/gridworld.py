@@ -255,6 +255,8 @@ class Gridworld(object):
         -> [[(state int, action int, reward float)]]
         """
 
+        print("Generating trajectories")
+
         trajectories = []
         for _ in range(n_trajectories):
             if random_start:

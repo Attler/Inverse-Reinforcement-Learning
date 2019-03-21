@@ -28,6 +28,20 @@ def main(grid_size, discount, n_objects, n_colours, n_trajectories, epochs,
     learning_rate: Gradient descent learning rate. float.
     """
 
+
+    print("="*50)
+
+    print("Running Best response experiment")
+    print("grid_size: ", grid_size)
+    print("discount: ", discount)
+    print("n_objects: ", n_objects)
+    print("n_colours: ", n_colours)
+    print("n_trajectories: ", n_trajectories)
+    print("epochs: ", epochs)
+    print("learning_rate: ", learning_rate)
+
+    print("="*50)
+
     wind = 0.3
     trajectory_length = 8
 
@@ -38,6 +52,11 @@ def main(grid_size, discount, n_objects, n_colours, n_trajectories, epochs,
     # get the true reward for the environment
     # ground_r = theta
     ground_r = np.array([ow.reward(s) for s in range(ow.n_states)])
+
+
+    print("Ground truth")
+    print(ground_r.reshape((grid_size, grid_size)))
+
 
     # Find the policy for H under ACIRL assumptions
     policy = find_best_response(ow.n_states, ow.n_actions, ow.transition_probability,
@@ -68,4 +87,4 @@ def main(grid_size, discount, n_objects, n_colours, n_trajectories, epochs,
     plt.show()
 
 if __name__ == '__main__':
-    main(5, 0.9, 15, 2, 20, 50, 0.01)
+    main(10, 0.9, 15, 2, 20, 50, 0.01)

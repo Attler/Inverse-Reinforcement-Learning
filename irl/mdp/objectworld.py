@@ -52,6 +52,7 @@ class Objectworld(Gridworld):
         discount: MDP discount. float.
         -> Objectworld
         """
+        print("Initialising Objectworld")
 
         super().__init__(grid_size, wind, discount)
 
